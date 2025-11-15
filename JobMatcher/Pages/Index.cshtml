@@ -1,0 +1,68 @@
+﻿@page
+@model JobMatcher.Pages.IndexModel
+@{
+    ViewData["Title"] = "Jobs";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">Job Listings</h2>
+
+    <div class="list-group mb-4">
+
+        @if (Model.Jobs.Count == 0)
+        {
+            <div class="alert alert-warning">No jobs found.</div>
+        }
+        else
+        {
+            foreach (var job in Model.Jobs)
+            {
+                <a class="list-group-item list-group-item-action" href="@job.Url" target="_blank">
+                    <div class="d-flex justify-content-between">
+                        <h5 class="mb-1">@job.Title</h5>
+                        @if(!string.IsNullOrEmpty(job.Type))
+                        {
+                            <span class="badge bg-primary">@job.Type</span>
+                        }
+                    </div>
+
+                    @if(!string.IsNullOrEmpty(job.Company))
+                    {
+                        <p class="mb-1">@job.Company</p>
+                    }
+
+                    @if(!string.IsNullOrEmpty(job.Location))
+                    {
+                        <small class="text-muted">@job.Location</small>
+                    }
+                </a>
+            }
+        }
+
+    </div>
+
+    <nav>
+        <ul class="pagination justify-content-center">
+
+            <li class="page-item @(Model.Page == 1 ? "disabled" : "")">
+                <a class="page-link" href="?page=@(Model.Page - 1)">Previous</a>
+            </li>
+
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.Page ? "active" : "")">
+                    <a class="page-link" href="?page=@i">@i</a>
+                </li>
+            }
+
+            <li class="page-item @(Model.Page == Model.TotalPages ? "disabled" : "")">
+                <a class="page-link" href="?page=@(Model.Page + 1)">Next</a>
+            </li>
+
+        </ul>
+    </nav>
+
+</div>
