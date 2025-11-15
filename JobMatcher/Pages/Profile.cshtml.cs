@@ -1,11 +1,9 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace JobMatcher.Pages;
-
-public class Profile : PageModel
+namespace JobMatcher.Pages
 {
-    public void OnGet()
+    public class ProfileModel : PageModel
     {
-        
+        public void OnGet() { }
     }
 }
